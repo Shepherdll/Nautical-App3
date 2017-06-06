@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:theme="@style/AppTheme2"
-    android:background="@drawable/background2_0"
+
    >
 
 
