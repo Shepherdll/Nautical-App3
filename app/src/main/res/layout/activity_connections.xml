@@ -11,15 +11,23 @@
    >
 
 
-    <android.support.v7.widget.RecyclerView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/show_chat_recyclerView" android:layout_marginRight="2dp" android:layout_marginLeft="2dp"
+    <android.support.v7.widget.RecyclerView
+
+        android:layout_height="510dp"
+        android:layout_width="match_parent"
+        android:id="@+id/active_chats"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="57dp"> </android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="57dp"
+        android:layout_alignParentBottom="true">
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressDick"/>
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
     <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"

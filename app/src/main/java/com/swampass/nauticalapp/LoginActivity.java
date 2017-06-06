@@ -34,22 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        if (mDatabase == null) {
-            mDatabase = FirebaseDatabase.getInstance();
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        }
 
-
-
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-
-        if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            finish();
-        }
 
         // set the view now
+        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_login);
 
 
@@ -60,8 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         forgotPass = (TextView) findViewById(R.id.link_forgot);
 
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+        }
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,7 +25,7 @@
             android:exported="true" />
         <activity
             android:name=".ConnectionsActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".HomeActivity"
             android:exported="true" />
@@ -45,6 +45,7 @@
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="true" />
+        <activity android:name=".ChatConversationActivity"></activity>
     </application>
 
 </manifest>
