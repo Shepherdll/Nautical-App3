@@ -61,12 +61,4 @@
         tools:layout_editor_absoluteX="168dp"
         tools:layout_editor_absoluteY="332dp" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="549dp"
-        android:layout_height="541dp"
-        app:srcCompat="@drawable/instruction"
-        tools:layout_editor_absoluteX="-62dp"
-        tools:layout_editor_absoluteY="-1dp" />
-
 </android.support.constraint.ConstraintLayout>
