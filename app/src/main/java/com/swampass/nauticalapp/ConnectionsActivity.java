@@ -70,7 +70,7 @@ public class ConnectionsActivity extends AppCompatActivity {
 
         users = new ArrayList<User>();
 
-        //Query query = mRef.orderByChild(user.getUid().toString());
+
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

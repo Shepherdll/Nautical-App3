@@ -4,15 +4,15 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/show_chat_single_item_layout"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_height="70dp"
+
         app:cardBackgroundColor="#dcdada"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="0dp"
         app:contentPadding="3dp"
         card_view:cardCornerRadius="5dp"
         card_view:cardElevation="2dp"

@@ -2,11 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     android:orientation="horizontal"
-    android:weightSum="1"
-    >
+    android:weightSum="1">
 
 
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:layout_margin="0dp"
-        android:background="@drawable/description_bar"
+
         android:contentInsetLeft="10dp"
         android:contentInsetRight="10dp"
         android:contentInsetStart="10dp"
@@ -29,22 +28,25 @@
         <ImageView
             android:id="@+id/action_profile"
             android:layout_width="25dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="start"
             android:clickable="true"
-            app:srcCompat="@drawable/profile_icon" />
+            app:srcCompat="@drawable/profile_icon"
+            android:layout_marginBottom="10dp"/>
 
         <ImageView
             android:id="@+id/action_home"
             android:layout_width="135dp"
             android:layout_height="43dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/nau_logo" />
+            app:srcCompat="@drawable/nau_logo"
+            android:layout_marginBottom="10dp"/>
 
         <ImageView
+            android:layout_marginBottom="10dp"
             android:id="@+id/action_msg"
             android:layout_width="25dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="end"
             app:srcCompat="@drawable/chat_icon" />
 

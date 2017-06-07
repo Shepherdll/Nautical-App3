@@ -2,6 +2,12 @@ package com.swampass.nauticalapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,16 +20,23 @@ import android.widget.ImageView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.R.attr.layout_margin;
+import static android.R.attr.radius;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -63,6 +76,9 @@ public class ProfileActivity extends AppCompatActivity {
         ImageView homeActivity = (ImageView) toolbar.findViewById(R.id.action_home);
         ImageView cnectActivity = (ImageView) toolbar.findViewById(R.id.action_msg);
         Button logout = (Button) findViewById(R.id.logout_btn2);
+
+        setmProfilePic();
+
 
         mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,8 +185,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
-        /*mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid());
+    private void setmProfilePic()
+    {
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
         if(mAuth.getCurrentUser() != null) {
 
@@ -178,10 +195,9 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    ImageUpload img = dataSnapshot.getValue(ImageUpload.class);
-                    String dick = img.getUrl();
+                    String pic = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("image").getValue(String.class);
 
-                    Picasso.with(getApplicationContext()).load(img.getUrl()).into(profPic);
+                    Picasso.with(getApplicationContext()).load(Uri.parse(pic)).transform(new RoundTransformation(76,0)).into(mProfilePic);
                 }
 
                 @Override
@@ -190,9 +206,55 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }
             });
-        }*/
+        }
 
 
+
+
+
+
+
+
+    }
+
+
+
+
+    public class RoundTransformation implements com.squareup.picasso.Transformation {
+
+        private final int radius;
+        private final int margin;
+
+        public RoundTransformation(final int radius, final int margin) {
+            this.radius = radius;
+            this.margin = margin;
+        }
+
+        @Override
+        public Bitmap transform(Bitmap source) {
+            final Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            paint.setShader(new BitmapShader(source, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+
+
+
+            Bitmap output = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(output);
+            canvas.drawRoundRect(new RectF(margin, margin, source.getWidth() - margin, source.getHeight() - margin), radius, radius, paint);
+
+            if (source != output) {
+                source.recycle();
+            }
+
+            return output;
+        }
+
+        @Override
+        public String key() {
+            return "rounded";
+        }
+
+    }
 
 
 

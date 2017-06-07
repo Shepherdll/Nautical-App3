@@ -11,7 +11,7 @@
         android:id="@+id/email"
         android:layout_width="364dp"
         android:layout_height="51dp"
-        android:background="@drawable/login_background2"
+        android:background="@drawable/login_email"
         android:hint="Registered Email"
         android:paddingLeft="40dp"
         android:inputType="textEmailAddress"
