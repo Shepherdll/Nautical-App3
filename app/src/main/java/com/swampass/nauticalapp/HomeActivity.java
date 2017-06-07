@@ -100,13 +100,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    //sign out method
-    public void signOut() {
-        auth.signOut();
-    }
-
-
-
     @Override
     public void onStart() {
         super.onStart();

@@ -11,11 +11,14 @@ import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,9 +38,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.R.attr.layout_margin;
-import static android.R.attr.radius;
-
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Uri mImageUri = null;
     private DatabaseReference mDatabaseUsers;
     private StorageReference mStorageImage;
-
+    private ImageView mpopup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,7 +197,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     String pic = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("image").getValue(String.class);
 
-                    Picasso.with(getApplicationContext()).load(Uri.parse(pic)).transform(new RoundTransformation(76,0)).into(mProfilePic);
+                    Picasso.with(getApplicationContext()).load(Uri.parse(pic)).fit().centerCrop().into(mProfilePic);
                 }
 
                 @Override
@@ -208,7 +208,27 @@ public class ProfileActivity extends AppCompatActivity {
             });
         }
 
+        mpopup = (ImageView) findViewById(R.id.Popup);
+        mpopup.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                PopupMenu popup = new PopupMenu(ProfileActivity.this, mpopup);
+
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(ProfileActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                popup.show();
+            }
+        });
 
 
 

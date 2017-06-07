@@ -29,8 +29,8 @@ public class ActiveChatConvo extends RecyclerView.Adapter<ActiveChatConvo.ViewHo
     private ArrayList<User> mUsers;
     private Context mContext;
 
-    public ActiveChatConvo(ArrayList<User> photos,Context dick) {
-        mUsers = photos;
+    public ActiveChatConvo(ArrayList<User> users,Context dick) {
+        mUsers = users;
         mContext = dick;
     }
 

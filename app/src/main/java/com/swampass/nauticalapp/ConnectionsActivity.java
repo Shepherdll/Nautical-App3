@@ -68,7 +68,7 @@ public class ConnectionsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        users = new ArrayList<User>();
+        users = new ArrayList<>();
 
 
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,6 +83,7 @@ public class ConnectionsActivity extends AppCompatActivity {
                         String pic = postSnapshot.child("image").getValue(String.class);
 
                         users.add(new User(name,email,pic));
+
                     }
                 }
 
@@ -94,15 +95,16 @@ public class ConnectionsActivity extends AppCompatActivity {
             }
         });
 
-
-
         //Recycler View
         recyclerView = (RecyclerView)findViewById(R.id.active_chats);
         ActiveChatConvo adapter = new ActiveChatConvo(users,this);
-        recyclerView.setAdapter(adapter);
+
         mLinearLayoutManager = new LinearLayoutManager(this);
         //mLinearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLinearLayoutManager);
+
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         //VIEWS
 
