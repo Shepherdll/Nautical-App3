@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,7 +20,8 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
-
+    public static String LoggedIn_User_Email;
+    public static int Device_Width;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +52,15 @@ public class HomeActivity extends AppCompatActivity {
 
 
                 }
+                else
+                {
+                    LoggedIn_User_Email = user.getEmail();
+                }
             }
         };
 
+        DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
+        Device_Width = metrics.widthPixels;
 
         ImageView profileActivity = (ImageView) toolbar.findViewById(R.id.action_profile);
         ImageView cnectActivity = (ImageView) toolbar.findViewById(R.id.action_msg);
@@ -104,6 +112,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(authListener);
+
     }
 
     @Override

@@ -53,7 +53,7 @@ public class ConnectionsActivity extends AppCompatActivity {
     private LinearLayoutManager mLinearLayoutManager;
     private ArrayList<User> users;
     private FirebaseAuth mAuth;
-
+    private   ActiveChatConvo adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +66,10 @@ public class ConnectionsActivity extends AppCompatActivity {
         mRef.keepSynced(true);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+
 
         users = new ArrayList<>();
-
+        adapter = new ActiveChatConvo(users,this);
 
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -85,6 +85,8 @@ public class ConnectionsActivity extends AppCompatActivity {
                         users.add(new User(name,email,pic));
 
                     }
+
+                    adapter.notifyDataSetChanged();
                 }
 
             }
@@ -97,14 +99,14 @@ public class ConnectionsActivity extends AppCompatActivity {
 
         //Recycler View
         recyclerView = (RecyclerView)findViewById(R.id.active_chats);
-        ActiveChatConvo adapter = new ActiveChatConvo(users,this);
+        //ActiveChatConvo adapter = new ActiveChatConvo(users,this);
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         //mLinearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLinearLayoutManager);
 
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
 
         //VIEWS
 

@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.swampass.nauticalapp.ChatConversationActivity;
 import com.swampass.nauticalapp.R;
@@ -24,12 +28,11 @@ import java.util.List;
  * Created by Peter on 6/6/2017.
  */
 
-public class ActiveChatConvo extends RecyclerView.Adapter<ActiveChatConvo.ViewHolder>
-{
+public class ActiveChatConvo extends RecyclerView.Adapter<ActiveChatConvo.ViewHolder> {
     private ArrayList<User> mUsers;
     private Context mContext;
 
-    public ActiveChatConvo(ArrayList<User> users,Context dick) {
+    public ActiveChatConvo(ArrayList<User> users, Context dick) {
         mUsers = users;
         mContext = dick;
     }
@@ -94,9 +97,14 @@ public class ActiveChatConvo extends RecyclerView.Adapter<ActiveChatConvo.ViewHo
         @Override
         public void onClick(View v) {
             Context context = itemView.getContext();
-            Intent showChatIntent = new Intent(context, ChatConversationActivity.class);
-            //showPhotoIntent.putExtra(PHOTO_KEY, mPhoto);
-            context.startActivity(showChatIntent);
+
+
+            Intent intent = new Intent(context, ChatConversationActivity.class);
+            // intent.putExtra("image_id", );
+            intent.putExtra("descripion", mItemDescription.getText().toString());
+            intent.putExtra("name", mItemName.getText().toString());
+
+            context.startActivity(intent);
         }
     }
 }
