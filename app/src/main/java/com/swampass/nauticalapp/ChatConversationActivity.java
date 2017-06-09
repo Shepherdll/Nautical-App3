@@ -20,7 +20,9 @@ import com.swampass.nauticalapp.model.ActiveChatConvo;
 import com.swampass.nauticalapp.model.ChatItemAdapter;
 import com.swampass.nauticalapp.model.ChatMessage;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ChatConversationActivity extends AppCompatActivity {
@@ -69,7 +71,7 @@ public class ChatConversationActivity extends AppCompatActivity {
         no_chat = (TextView)findViewById(R.id.no_chat_text);
 
         VAGINA = new ArrayList<>();
-        adapter = new ChatItemAdapter(VAGINA,this);
+        adapter = new ChatItemAdapter(VAGINA,this,myRef);
 
         recyclerView = (RecyclerView)findViewById(R.id.chat_recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(ChatConversationActivity.this);
@@ -90,8 +92,8 @@ public class ChatConversationActivity extends AppCompatActivity {
                     map.put("sender", HomeActivity.LoggedIn_User_Email);
                     myRef.push().setValue(map);
                     myRef2.push().setValue(map);
-
-                    VAGINA.add(new ChatMessage(messageText, HomeActivity.LoggedIn_User_Email) );
+                    Date dick = DateFormat.getDateInstance().getCalendar().getTime();
+                    VAGINA.add(new ChatMessage(messageText, HomeActivity.LoggedIn_User_Email,dick) );
 
                     message_area.setText("");
                     recyclerView.postDelayed(new Runnable() {

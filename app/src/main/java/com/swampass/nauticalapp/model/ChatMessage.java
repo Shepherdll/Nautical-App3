@@ -11,15 +11,17 @@ public class ChatMessage {
     private UserType userType;
     private Status messageStatus;
     private String userID;
-    private Date mDate;
+    private Date date;
 
-    public ChatMessage(String messageText, String userID) {
+    public ChatMessage(String messageText, String userID, Date date) {
         this.messageText = messageText;
         this.userID = userID;
+        this.date = date;
+
     }
 
-    public void setDate(Date mDate) {this.mDate = mDate;}
-    public Date getDate() {return mDate;}
+    public void setDate(Date mDate) {this.date = date;}
+    public Date getDate() {return date;}
 
     public String getUserID() {return userID;}
     public void setUserID(String userID) {this.userID = userID;}

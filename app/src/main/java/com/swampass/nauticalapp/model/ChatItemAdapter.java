@@ -3,6 +3,7 @@ package com.swampass.nauticalapp.model;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,12 +34,13 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
 {
     private ArrayList<ChatMessage> messages;
     private Context mContext;
-    private final LinearLayout.LayoutParams text_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    private DatabaseReference mRef;
 
-    public ChatItemAdapter(ArrayList<ChatMessage> msgs, Context dick)
+    public ChatItemAdapter(ArrayList<ChatMessage> messages, Context mContext,DatabaseReference mRef)
     {
-        messages = msgs;
-        mContext = dick;
+        this.messages = messages;
+        this.mContext = mContext;
+        this.mRef = mRef;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.chatbubble, parent, false);
+        View contactView = inflater.inflate(R.layout.chat_conversation_single_item, parent, false);
 
         // Return a new holder instance
         ChatItemAdapter.ViewHolder viewHolder = new ChatItemAdapter.ViewHolder(contactView);
@@ -57,25 +59,52 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(ChatItemAdapter.ViewHolder holder,  int position) {
 
-
-        if(messages.get(position).getUserType() == UserType.SELF)
+        //getSender
+        if(messages.get(position).getUserID().equals(HomeActivity.LoggedIn_User_Email))
         {
+            //Log.d("LOGGED", "getSender: ");
+            holder.params.setMargins((HomeActivity.Device_Width/3),5,10,10);
+            holder.text_params.setMargins(15,10,0,5);
+            holder.sender.setLayoutParams(holder.text_params);
+            holder.itemView.setLayoutParams(holder.params);
+            holder.itemView.setBackgroundResource(R.drawable.shape_outcoming_message);
+            holder.sender.setText("YOU");
 
-
-            text_params.setMargins(15,10,22,15);
 
         }
         else
         {
-            text_params.setMargins(65,10,22,15);
+            holder.params.setMargins(10,0,(HomeActivity.Device_Width/3),10);
+            holder.sender.setGravity(Gravity.START);
+            holder.text_params.setMargins(60,10,0,5);
+            holder.sender.setLayoutParams(holder.text_params);
+            holder.itemView.setLayoutParams(holder.params);
+            holder.itemView.setBackgroundResource(R.drawable.shape_incoming_message);
+            holder.sender.setText(messages.get(position).getUserID());
 
         }
-        holder.message.setLayoutParams(text_params);
-        holder.message.setText(messages.get(position).getMessageText());
-        holder.message.setTextColor(Color.parseColor("#FFFFFF"));
-        holder.message.setVisibility(View.VISIBLE);
 
-        holder.sender.setText(messages.get(position).getUserID());
+
+        //setMessage
+
+
+            if(!messages.get(position).getMessageText().equals(HomeActivity.LoggedIn_User_Email))
+            {
+                holder.text_params.setMargins(15,10,22,15);
+            }
+            else
+            {
+                holder.text_params.setMargins(65,10,22,15);
+            }
+
+            holder.message.setLayoutParams(holder.text_params);
+            holder.message.setText(messages.get(position).getMessageText());
+            holder.message.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.message.setVisibility(View.VISIBLE);
+
+
+
+
 
 
     }
@@ -89,16 +118,20 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     //View Holder For Recycler View
     public static class ViewHolder extends RecyclerView.ViewHolder  {
         private final TextView message, sender;
-
+        private final LinearLayout.LayoutParams params, text_params;
+        LinearLayout layout;
 
 
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
-            message = (TextView) itemView.findViewById(R.id.message_text);
-            sender = (TextView) itemView.findViewById(R.id.sender_txt);
-
+            message = (TextView) itemView.findViewById(R.id.fetch_chat_messgae);
+            sender = (TextView) itemView.findViewById(R.id.fetch_chat_sender);
+            //date = (TextView) itemView.findViewById(R.id.date_txt);
+            text_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);;
+            layout = (LinearLayout) itemView.findViewById(R.id.chat_linear_layout);
         }
 
 
