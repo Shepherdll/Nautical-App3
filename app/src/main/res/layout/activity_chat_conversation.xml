@@ -10,7 +10,7 @@
     tools:layout_editor_absoluteY="25dp">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_chat_recycler_view"
+        android:id="@+id/chat_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

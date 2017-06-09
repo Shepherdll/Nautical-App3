@@ -10,32 +10,30 @@ public class ChatMessage {
     private String messageText;
     private UserType userType;
     private Status messageStatus;
-    private Date mDate;
+    private String userID;
+    private Date date;
 
-    public void setDate(Date mDate) {this.mDate = mDate;}
-    public Date getDate() { return mDate;}
-
-
-    public void setMessageText(String messageText) {
+    public ChatMessage(String messageText, String userID, Date date) {
         this.messageText = messageText;
+        this.userID = userID;
+        this.date = date;
+
     }
+
+    public void setDate(Date mDate) {this.date = date;}
+    public Date getDate() {return date;}
+
+    public String getUserID() {return userID;}
+    public void setUserID(String userID) {this.userID = userID;}
+
+    public void setMessageText(String messageText) {this.messageText = messageText;}
     public String getMessageText() { return messageText;}
 
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
-    public UserType getUserType() {
-        return userType;
-    }
+    public UserType getUserType() {return userType;}
 
-    public void setMessageStatus(String messageStatus) {
-        if(messageStatus.equals("sender"))
-            this.messageStatus = Status.SENT;
-        else
-            this.messageStatus = Status.DELIVERED;
-
-    }
-    public Status getMessageStatus() {
-        return messageStatus;
-    }
+    public void setMessageStatus(Status messageStatus) { this.messageStatus = messageStatus;}
+    public Status getMessageStatus() {return messageStatus;}
 }
