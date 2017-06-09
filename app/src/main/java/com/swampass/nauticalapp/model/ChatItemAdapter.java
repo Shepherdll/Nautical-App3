@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -35,7 +36,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     private ArrayList<ChatMessage> messages;
     private Context mContext;
     private DatabaseReference mRef;
-
+    private String receivedMsg;
     public ChatItemAdapter(ArrayList<ChatMessage> messages, Context mContext,DatabaseReference mRef)
     {
         this.messages = messages;
@@ -57,7 +58,9 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ChatItemAdapter.ViewHolder holder,  int position) {
+    public void onBindViewHolder(final ChatItemAdapter.ViewHolder holder,  int position) {
+
+
 
         //getSender
         if(messages.get(position).getUserID().equals(HomeActivity.LoggedIn_User_Email))
@@ -91,16 +94,46 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
             if(!messages.get(position).getMessageText().equals(HomeActivity.LoggedIn_User_Email))
             {
                 holder.text_params.setMargins(15,10,22,15);
+
+                mRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChildren()) {
+
+                            for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                            {
+                                receivedMsg = snapshot.child("message").getValue(String.class);
+
+                                holder.message.setLayoutParams(holder.text_params);
+                                holder.message.setText(receivedMsg);
+                                holder.message.setTextColor(Color.parseColor("#FFFFFF"));
+                                holder.message.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+
             }
             else
             {
+
                 holder.text_params.setMargins(65,10,22,15);
+                holder.message.setLayoutParams(holder.text_params);
+                holder.message.setText(receivedMsg);
+                holder.message.setTextColor(Color.parseColor("#FFFFFF"));
+                holder.message.setVisibility(View.VISIBLE);
             }
 
-            holder.message.setLayoutParams(holder.text_params);
-            holder.message.setText(messages.get(position).getMessageText());
-            holder.message.setTextColor(Color.parseColor("#FFFFFF"));
-            holder.message.setVisibility(View.VISIBLE);
+
 
 
 
