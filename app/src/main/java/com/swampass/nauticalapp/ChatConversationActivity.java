@@ -71,7 +71,7 @@ public class ChatConversationActivity extends AppCompatActivity {
         no_chat = (TextView)findViewById(R.id.no_chat_text);
 
         VAGINA = new ArrayList<>();
-        adapter = new ChatItemAdapter(VAGINA,this,myRef);
+        adapter = new ChatItemAdapter(VAGINA,this,myRef2);
 
         recyclerView = (RecyclerView)findViewById(R.id.chat_recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(ChatConversationActivity.this);
