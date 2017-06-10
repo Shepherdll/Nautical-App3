@@ -92,14 +92,6 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     //setMessage
 
 
-        mRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                    {
-                        holder.text_params.setMargins(15,10,22,15);
 
 
 
@@ -107,27 +99,42 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
 
 
 
-                        receivedMsg = snapshot.child("message").getValue(String.class);
 
-                        holder.message.setLayoutParams(holder.text_params);
-                        holder.message.setText(receivedMsg);
-                        holder.message.setTextColor(Color.parseColor("#FFFFFF"));
-                        holder.message.setVisibility(View.VISIBLE);
+
+
+                mRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChildren()) {
+
+                            for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                            {
+                                holder.text_params.setMargins(15,10,22,15);
+
+
+
+
+
+
+
+                                receivedMsg = snapshot.child("message").getValue(String.class);
+
+                                holder.message.setLayoutParams(holder.text_params);
+                                holder.message.setText(receivedMsg);
+                                holder.message.setTextColor(Color.parseColor("#FFFFFF"));
+                                holder.message.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+
+
+
                     }
 
-                }
-
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-
-
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
 
 
 
