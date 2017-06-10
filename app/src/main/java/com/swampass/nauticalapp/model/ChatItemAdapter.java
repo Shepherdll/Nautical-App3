@@ -37,6 +37,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     private Context mContext;
     private DatabaseReference mRef;
     private String receivedMsg;
+
     public ChatItemAdapter(ArrayList<ChatMessage> messages, Context mContext,DatabaseReference mRef)
     {
         this.messages = messages;
@@ -58,7 +59,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final ChatItemAdapter.ViewHolder holder,  int position) {
+    public void onBindViewHolder(final ChatItemAdapter.ViewHolder holder,  final int position) {
 
 
 
@@ -74,7 +75,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
             holder.sender.setText("YOU");
 
 
-        }
+         }
         else
         {
             holder.params.setMargins(10,0,(HomeActivity.Device_Width/3),10);
@@ -88,10 +89,10 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
         }
 
 
-        //setMessage
+    //setMessage
 
 
-            if(!messages.get(position).getMessageText().equals(HomeActivity.LoggedIn_User_Email))
+            if(!messages.get(position).getUserID().equals(HomeActivity.LoggedIn_User_Email))
             {
                 holder.text_params.setMargins(15,10,22,15);
 
@@ -102,6 +103,14 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
 
                             for(DataSnapshot snapshot : dataSnapshot.getChildren())
                             {
+
+
+
+
+
+
+
+
                                 receivedMsg = snapshot.child("message").getValue(String.class);
 
                                 holder.message.setLayoutParams(holder.text_params);
@@ -128,7 +137,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
 
                 holder.text_params.setMargins(65,10,22,15);
                 holder.message.setLayoutParams(holder.text_params);
-                holder.message.setText(receivedMsg);
+                holder.message.setText(messages.get(position).getMessageText());
                 holder.message.setTextColor(Color.parseColor("#FFFFFF"));
                 holder.message.setVisibility(View.VISIBLE);
             }
