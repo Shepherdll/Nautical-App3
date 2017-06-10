@@ -92,17 +92,14 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     //setMessage
 
 
-            if(!messages.get(position).getUserID().equals(HomeActivity.LoggedIn_User_Email))
-            {
-                holder.text_params.setMargins(15,10,22,15);
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
 
-                mRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChildren()) {
-
-                            for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                            {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                    {
+                        holder.text_params.setMargins(15,10,22,15);
 
 
 
@@ -110,29 +107,31 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
 
 
 
+                        receivedMsg = snapshot.child("message").getValue(String.class);
 
-                                receivedMsg = snapshot.child("message").getValue(String.class);
-
-                                holder.message.setLayoutParams(holder.text_params);
-                                holder.message.setText(receivedMsg);
-                                holder.message.setTextColor(Color.parseColor("#FFFFFF"));
-                                holder.message.setVisibility(View.VISIBLE);
-                            }
-
-                        }
-
-
-
+                        holder.message.setLayoutParams(holder.text_params);
+                        holder.message.setText(receivedMsg);
+                        holder.message.setTextColor(Color.parseColor("#FFFFFF"));
+                        holder.message.setVisibility(View.VISIBLE);
                     }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                }
+
 
 
             }
-            else
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
+
+
+
+            if(messages.get(position).getUserID().equals(HomeActivity.LoggedIn_User_Email))
             {
 
                 holder.text_params.setMargins(65,10,22,15);
