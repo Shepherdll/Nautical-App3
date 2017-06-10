@@ -75,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         ImageView homeActivity = (ImageView) toolbar.findViewById(R.id.action_home);
         ImageView cnectActivity = (ImageView) toolbar.findViewById(R.id.action_msg);
-        Button logout = (Button) findViewById(R.id.logout_btn2);
+
 
         setmProfilePic();
 
@@ -90,17 +90,8 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, GALLERY_REQUEST);
             }
         });
-        logout.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity( new Intent(ProfileActivity.this, LoginActivity.class));
-                finish();
-                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
-            }
 
-        });
 
         homeActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,7 +212,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(ProfileActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                        mAuth.signOut();
+                        startActivity( new Intent(ProfileActivity.this, LoginActivity.class));
+                        finish();
+                        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
                         return true;
                     }
                 });

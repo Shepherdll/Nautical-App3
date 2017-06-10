@@ -64,23 +64,13 @@ public class HomeActivity extends AppCompatActivity {
 
         ImageView profileActivity = (ImageView) toolbar.findViewById(R.id.action_profile);
         ImageView cnectActivity = (ImageView) toolbar.findViewById(R.id.action_msg);
-        Button logout = (Button) findViewById(R.id.logout_btn);
 
 
 
 
 
-        logout.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-                startActivity( new Intent(HomeActivity.this, LoginActivity.class));
-                finish();
-                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
-            }
 
-        });
 
         profileActivity.setOnClickListener(new View.OnClickListener() {
 
