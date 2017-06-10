@@ -45,7 +45,7 @@ public class ChatConversationActivity extends AppCompatActivity {
 
         String USER_ID = HomeActivity.LoggedIn_User_Email.replace("@","").replace(".","");
         String fuckingretard = getIntent().getStringExtra("descripion").replace("@","").replace(".","");
-        myRef = FirebaseDatabase.getInstance().getReference().child("Chat").child(USER_ID).child(fuckingretard);
+            myRef = FirebaseDatabase.getInstance().getReference().child("Chat").child(USER_ID).child(fuckingretard);
         myRef.keepSynced(true);
         //Log.d("LOGGED", "myRef : " + myRef);
 
