@@ -212,10 +212,15 @@ public class ProfileActivity extends AppCompatActivity {
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        mAuth.signOut();
-                        startActivity( new Intent(ProfileActivity.this, LoginActivity.class));
-                        finish();
-                        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
+                        if (item.getItemId() == R.id.Logout_btn3) {
+
+                            mAuth.signOut();
+                            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                            finish();
+                            overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
+                        }
                         return true;
                     }
                 });
