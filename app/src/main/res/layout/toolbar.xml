@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +10,8 @@
 
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:layout_margin="0dp"
+        android:layout_width="388dp"
+        android:layout_height="54dp"
 
         android:contentInsetLeft="10dp"
         android:contentInsetRight="10dp"
@@ -22,7 +21,13 @@
         android:weightSum="1"
         app:contentInsetLeft="10dp"
         app:contentInsetRight="10dp"
-        app:contentInsetStart="10dp">
+        app:contentInsetStart="10dp"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="0dp"
+        tools:layout_conversion_absoluteWidth="384dp"
+        tools:layout_conversion_absoluteHeight="59dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp">
 
 
         <ImageView
@@ -32,7 +37,7 @@
             android:layout_gravity="start"
             android:clickable="true"
             app:srcCompat="@drawable/profile_icon"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp" />
 
         <ImageView
             android:id="@+id/action_home"
@@ -40,7 +45,7 @@
             android:layout_height="43dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/nau_logo"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp" />
 
         <ImageView
             android:layout_marginBottom="10dp"
@@ -54,4 +59,4 @@
     </android.support.v7.widget.Toolbar>
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

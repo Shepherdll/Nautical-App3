@@ -10,14 +10,17 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private ProgressDialog  mProgress;
-    private CircleImageView mProfilePic;
+    private ImageView mProfilePic;
     private Button mSubmitBtn;
     private static final int GALLERY_REQUEST = 1;
     private Toolbar toolbar;
@@ -53,6 +56,16 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUsers;
     private StorageReference mStorageImage;
     private ImageView mpopup;
+    private TextView mBio;
+    private TextView mInt;
+
+
+
+    String bio_value;
+    String int_value;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,34 +76,61 @@ public class ProfileActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
 
 
+
         mAuth = FirebaseAuth.getInstance();
 
-        mProfilePic = (CircleImageView) findViewById(R.id.profileimagebutton2);
+        //mProfilePic = (CircleImageView) findViewById(R.id.profileimagebutton2);
         mSubmitBtn = (Button) findViewById(R.id.setupSubmit);
         mProgress = new ProgressDialog(this);
-
+        mBio = (TextView) findViewById(R.id._bio);
         mStorageImage = FirebaseStorage.getInstance().getReference().child("Profile_images");
         mAuth = FirebaseAuth.getInstance();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mInt = (TextView) findViewById(R.id.intr_txt);
+        mProfilePic = (ImageView) findViewById(R.id.prof_pic);
+
 
         ImageView homeActivity = (ImageView) toolbar.findViewById(R.id.action_home);
         ImageView cnectActivity = (ImageView) toolbar.findViewById(R.id.action_msg);
 
+        mpopup = (ImageView) findViewById(R.id.Popup);
+        mpopup.setOnClickListener(new View.OnClickListener() {
 
-        setmProfilePic();
-
-
-        mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, GALLERY_REQUEST);
+                PopupMenu popup = new PopupMenu(ProfileActivity.this, mpopup);
+
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        if (item.getItemId() == R.id.edit_profile) {
+                            startActivity(new Intent(ProfileActivity.this, UpdateProfile.class));
+                            finish();
+                            overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
+                        }
+
+
+
+                        if (item.getItemId() == R.id.Logout_btn3) {
+
+                            mAuth.signOut();
+                            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                            finish();
+                            overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show();
             }
         });
-
 
 
         homeActivity.setOnClickListener(new View.OnClickListener() {
@@ -176,11 +216,17 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private void setmProfilePic()
-    {
-        mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
-        if(mAuth.getCurrentUser() != null) {
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
+        int_value = getIntent().getStringExtra("interest_value");
+        bio_value = getIntent().getStringExtra("bio_value");
+
+        if (mAuth.getCurrentUser() != null) {
 
             mDatabaseUsers.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -199,86 +245,52 @@ public class ProfileActivity extends AppCompatActivity {
             });
         }
 
-        mpopup = (ImageView) findViewById(R.id.Popup);
-        mpopup.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                PopupMenu popup = new PopupMenu(ProfileActivity.this, mpopup);
-
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
 
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
 
-                        if (item.getItemId() == R.id.Logout_btn3) {
+        if (mAuth.getCurrentUser() != null) {
 
-                            mAuth.signOut();
-                            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-                            finish();
-                            overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
+            mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    String bio = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("bio").getValue(String.class);
+                    if(bio != null)
+                        mBio.setText(bio);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+
+                }
+
+            });
+
+
+
+                if (mAuth.getCurrentUser() != null) {
+
+
+                    mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            String interests = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("interests").getValue(String.class);
+                            if(interests != null)
+                                mInt.setText(interests);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
 
                         }
-                        return true;
-                    }
-                });
+                    });
+                }
 
-                popup.show();
-            }
-        });
-
-
-
-
-
-
+        }
     }
 
-
-
-
-    public class RoundTransformation implements com.squareup.picasso.Transformation {
-
-        private final int radius;
-        private final int margin;
-
-        public RoundTransformation(final int radius, final int margin) {
-            this.radius = radius;
-            this.margin = margin;
-        }
-
-        @Override
-        public Bitmap transform(Bitmap source) {
-            final Paint paint = new Paint();
-            paint.setAntiAlias(true);
-            paint.setShader(new BitmapShader(source, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
-
-
-
-            Bitmap output = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(output);
-            canvas.drawRoundRect(new RectF(margin, margin, source.getWidth() - margin, source.getHeight() - margin), radius, radius, paint);
-
-            if (source != output) {
-                source.recycle();
-            }
-
-            return output;
-        }
-
-        @Override
-        public String key() {
-            return "rounded";
-        }
-
-    }
-
-
-
-
-
-    }
-
-
+}

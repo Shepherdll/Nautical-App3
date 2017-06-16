@@ -46,6 +46,7 @@
             android:name=".ForgotPasswordActivity"
             android:exported="true" />
         <activity android:name=".ChatConversationActivity" />
+        <activity android:name=".UpdateProfile"></activity>
     </application>
 
 </manifest>
