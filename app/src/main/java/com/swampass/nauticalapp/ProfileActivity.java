@@ -2,26 +2,16 @@ package com.swampass.nauticalapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,8 +28,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -58,11 +46,12 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView mpopup;
     private TextView mBio;
     private TextView mInt;
-
+    private TextView mLang;
 
 
     String bio_value;
     String int_value;
+    String lang_value;
 
 
 
@@ -88,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mInt = (TextView) findViewById(R.id.intr_txt);
         mProfilePic = (ImageView) findViewById(R.id.prof_pic);
+        mLang = (TextView) findViewById(R.id.dick_turd);
 
 
         ImageView homeActivity = (ImageView) toolbar.findViewById(R.id.action_home);
@@ -223,8 +213,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
-        int_value = getIntent().getStringExtra("interest_value");
-        bio_value = getIntent().getStringExtra("bio_value");
+
 
         if (mAuth.getCurrentUser() != null) {
 
@@ -288,9 +277,29 @@ public class ProfileActivity extends AppCompatActivity {
 
                         }
                     });
+
+                    if (mAuth.getCurrentUser() != null) {
+
+
+                        mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                String languages = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("languages").getValue(String.class);
+                                if(languages != null)
+                                    mLang.setText(languages);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+
+                            }
+                        });
                 }
 
         }
     }
 
+}
 }
