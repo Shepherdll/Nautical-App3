@@ -22,6 +22,8 @@ public class UpdateProfile extends AppCompatActivity {
     private Button mDick;
     private Button interestsBtn;
     private TextInputLayout mInts;
+    private TextInputLayout mLang;
+
 
     //Firebase
     private DatabaseReference mRef;
@@ -47,16 +49,35 @@ public class UpdateProfile extends AppCompatActivity {
             setSupportActionBar(toolbar);
 
         mBio = (TextInputLayout) findViewById(R.id.bio_txt);
-        mBiobtn = (Button) findViewById(R.id.bio_btn);
-        mDick = (Button) findViewById(R.id.dick_btn);
-        interestsBtn = (Button) findViewById(R.id.btn_change2);
-        mInts = (TextInputLayout) findViewById(R.id.int_txt);
 
+        mDick = (Button) findViewById(R.id.dick_btn);
+
+        mInts = (TextInputLayout) findViewById(R.id.int_txt);
+        mLang = (TextInputLayout) findViewById(R.id.lang_txt);
 
 
         mDick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                String bio = mBio.getEditText().getText().toString();
+                if(bio.equals(""))
+                mRef.child("bio").setValue(bio);
+                Intent bio_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
+                bio_intent.putExtra("bio_value", bio);
+
+                String ints = mInts.getEditText().getText().toString();
+                if(!ints.equals(""))
+                mRef.child("interests").setValue(ints);
+                Intent intr_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
+                intr_intent.putExtra("interest_value", ints);
+
+                String lang = mLang.getEditText().getText().toString();
+                if(!lang.equals(""))
+                mRef.child("languages").setValue(lang);
+                Intent lang_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
+                lang_intent.putExtra("lang_value", lang);
 
                 startActivity(new Intent(UpdateProfile.this, ProfileActivity.class));
                 finish();
@@ -64,34 +85,8 @@ public class UpdateProfile extends AppCompatActivity {
             }
         });
 
-        mBiobtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
 
-                String bio = mBio.getEditText().getText().toString();
-                mRef.child("bio").setValue(bio);
-                Intent bio_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
-                bio_intent.putExtra("bio_value", bio);
-            }
-
-
-
-        });
-        interestsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                String ints = mInts.getEditText().getText().toString();
-                mRef.child("interests").setValue(ints);
-                Intent intr_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
-                intr_intent.putExtra("interest_value", ints);
-            }
-
-
-
-        });
     }
 
 
