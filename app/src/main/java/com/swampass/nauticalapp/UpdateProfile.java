@@ -62,7 +62,7 @@ public class UpdateProfile extends AppCompatActivity {
 
 
                 String bio = mBio.getEditText().getText().toString();
-                if(bio.equals(""))
+                if(!bio.equals(""))
                 mRef.child("bio").setValue(bio);
                 Intent bio_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
                 bio_intent.putExtra("bio_value", bio);
