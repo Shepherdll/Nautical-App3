@@ -63,19 +63,19 @@ public class UpdateProfile extends AppCompatActivity {
 
                 String bio = mBio.getEditText().getText().toString();
                 if(!bio.equals(""))
-                mRef.child("bio").setValue(bio);
+                    mRef.child("bio").setValue(bio);
                 Intent bio_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
                 bio_intent.putExtra("bio_value", bio);
 
                 String ints = mInts.getEditText().getText().toString();
                 if(!ints.equals(""))
-                mRef.child("interests").setValue(ints);
+                    mRef.child("interests").setValue(ints);
                 Intent intr_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
                 intr_intent.putExtra("interest_value", ints);
 
                 String lang = mLang.getEditText().getText().toString();
                 if(!lang.equals(""))
-                mRef.child("languages").setValue(lang);
+                    mRef.child("languages").setValue(lang);
                 Intent lang_intent = new Intent(UpdateProfile.this, ProfileActivity.class);
                 lang_intent.putExtra("lang_value", lang);
 

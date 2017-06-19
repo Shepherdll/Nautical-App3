@@ -22,7 +22,7 @@
         android:id="@+id/horizontalScrollView"
         app:layout_constraintTop_toTopOf="@+id/prof_pic"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.761">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -71,6 +71,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/attachment" />
+
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -95,18 +96,20 @@
 
     <ImageView
         android:id="@+id/prof_pic"
-        android:layout_width="0dp"
-        android:layout_height="373dp"
-        app:srcCompat="@drawable/dum_boi"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="1dp"
+        android:layout_width="412dp"
+        android:layout_height="309dp"
         android:layout_marginEnd="1dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="65dp"
-        tools:layout_constraintLeft_creator="1"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/aluminum"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dum_boi"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <ImageView
         android:id="@+id/Popup"
@@ -122,73 +125,25 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="410dp"
-        android:layout_height="212dp"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager_bitch"
+        android:layout_width="405dp"
+        android:layout_height="294dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prof_pic"
+        app:layout_constraintVertical_bias="0.25"
+        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/_bio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="serif"
-                android:textColor="?android:attr/textColorLinkInverse"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="453dp" />
-
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="25dp"
-                app:srcCompat="@drawable/inyt_tt"
-                tools:layout_editor_absoluteX="126dp"
-                tools:layout_editor_absoluteY="543dp" />
-
-            <TextView
-                android:id="@+id/intr_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="serif"
-                android:textColor="@color/colorAccent"
-                android:textSize="15dp" />
-
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="94dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                app:srcCompat="@drawable/langu_l"
-                tools:layout_editor_absoluteX="80dp"
-                tools:layout_editor_absoluteY="591dp" />
-
-            <TextView
-                android:id="@+id/dick_turd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textSize="15sp" />
-        </LinearLayout>
-    </ScrollView>
+    </android.support.v4.view.ViewPager>
 
 
 </android.support.constraint.ConstraintLayout>

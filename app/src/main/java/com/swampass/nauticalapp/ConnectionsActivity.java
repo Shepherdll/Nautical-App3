@@ -53,9 +53,11 @@ public class ConnectionsActivity extends AppCompatActivity {
     private LinearLayoutManager mLinearLayoutManager;
     private ArrayList<User> users;
     private FirebaseAuth mAuth;
-    private   ActiveChatConvo adapter;
+    private ActiveChatConvo adapter;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
 

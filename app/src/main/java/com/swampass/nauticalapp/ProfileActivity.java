@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -44,10 +45,9 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUsers;
     private StorageReference mStorageImage;
     private ImageView mpopup;
-    private TextView mBio;
-    private TextView mInt;
-    private TextView mLang;
 
+     private ViewPager mViewpager;
+    private SectionPagerAdapter mSecPageAdapter;
 
     String bio_value;
     String int_value;
@@ -71,13 +71,19 @@ public class ProfileActivity extends AppCompatActivity {
         //mProfilePic = (CircleImageView) findViewById(R.id.profileimagebutton2);
         mSubmitBtn = (Button) findViewById(R.id.setupSubmit);
         mProgress = new ProgressDialog(this);
-        mBio = (TextView) findViewById(R.id._bio);
+
         mStorageImage = FirebaseStorage.getInstance().getReference().child("Profile_images");
         mAuth = FirebaseAuth.getInstance();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
-        mInt = (TextView) findViewById(R.id.intr_txt);
+
         mProfilePic = (ImageView) findViewById(R.id.prof_pic);
-        mLang = (TextView) findViewById(R.id.dick_turd);
+
+
+        mViewpager = (ViewPager) findViewById(R.id.pager_bitch);
+        mSecPageAdapter = new SectionPagerAdapter(getSupportFragmentManager());
+        mViewpager.setAdapter(mSecPageAdapter);
+        mViewpager.setCurrentItem(0);
+
 
 
         ImageView homeActivity = (ImageView) toolbar.findViewById(R.id.action_home);
@@ -98,8 +104,9 @@ public class ProfileActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
 
                         if (item.getItemId() == R.id.edit_profile) {
-                            startActivity(new Intent(ProfileActivity.this, UpdateProfile.class));
-                            finish();
+                            /*startActivity(new Intent(ProfileActivity.this, UpdateProfile.class));
+                            finish();*/
+                            mViewpager.setCurrentItem(1,true);
                             overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 
                         }
@@ -237,69 +244,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        if (mAuth.getCurrentUser() != null) {
 
-
-            mDatabaseUsers.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    String bio = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("bio").getValue(String.class);
-                    if(bio != null)
-                        mBio.setText(bio);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-
-                }
-
-            });
-
-
-
-                if (mAuth.getCurrentUser() != null) {
-
-
-                    mDatabaseUsers.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            String interests = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("interests").getValue(String.class);
-                            if(interests != null)
-                                mInt.setText(interests);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-
-                        }
-                    });
-
-                    if (mAuth.getCurrentUser() != null) {
-
-
-                        mDatabaseUsers.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                String languages = dataSnapshot.child(mAuth.getCurrentUser().getUid()).child("languages").getValue(String.class);
-                                if(languages != null)
-                                    mLang.setText(languages);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-
-                            }
-                        });
-                }
-
-        }
-    }
 
 }
 }

@@ -45,4 +45,7 @@
     <string name="bio">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt justo in tempus varius. In gravida ante et pharetra iaculis. Nunc tempor mauris sit amet malesuada feugiat. Vestibulum facilisis non augue at tincidunt. Ut id tincidunt diam. Integer sed accumsan erat. Aliquam viverra hendrerit orci ut mollis.</string>
     <string name="title_activity_popup_menu">popup_menu</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
