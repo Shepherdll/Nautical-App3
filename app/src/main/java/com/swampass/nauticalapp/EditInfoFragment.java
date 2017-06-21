@@ -43,15 +43,13 @@ public class EditInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_info,container,false);
+        View view = inflater.inflate(R.layout.fragment_edit_info,container,false);
 
-        mViewpager = (ViewPager) view.findViewById(R.id.pager_bitch);
-        mSecPageAdapter = new SectionPagerAdapter(getChildFragmentManager());
-        mViewpager.setAdapter(mSecPageAdapter);
+
 
         mBio = (TextInputLayout)   view.findViewById(R.id.edit_bio);
-        mInt = (TextInputLayout)   view.findViewById(R.id.intr_txt);
-        mLang = (TextInputLayout)  view.findViewById(R.id.dick_turd);
+        mInt = (TextInputLayout)   view.findViewById(R.id.edit_intr);
+        mLang = (TextInputLayout)  view.findViewById(R.id.edit_lang);
         mAuth = FirebaseAuth.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mSave_Btn = (Button) view.findViewById(R.id.save_btn);
@@ -75,14 +73,14 @@ public class EditInfoFragment extends Fragment {
                     mRef.child("languages").setValue(lang);
 
 
-                mViewpager.setCurrentItem(0);
+
 
 
             }
         });
 
 
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        return inflater.inflate(R.layout.fragment_edit_info, container, false);
 
     }
 

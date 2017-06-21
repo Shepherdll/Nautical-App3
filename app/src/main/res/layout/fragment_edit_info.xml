@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,9 +26,7 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent" />
-
+                    android:layout_height="wrap_content" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageView
@@ -37,21 +35,17 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="25dp"
                 app:srcCompat="@drawable/inyt_tt"
-                tools:layout_editor_absoluteX="126dp"
-                tools:layout_editor_absoluteY="543dp" />
+ />
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/intr_txt"
+                android:id="@+id/edit_intr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="serif"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="15dp" />
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <ImageView
@@ -64,26 +58,26 @@
                 tools:layout_editor_absoluteY="591dp" />
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/dick_turd"
+                android:id="@+id/edit_lang"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/common_google_signin_btn_text_dark_default"
                     android:textSize="15sp" />
+
             </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save" />
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/save_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/scrollView2"
-        android:text="save" />
-
-</RelativeLayout>
+</FrameLayout>

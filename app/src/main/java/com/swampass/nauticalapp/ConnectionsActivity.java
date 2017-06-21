@@ -29,12 +29,7 @@ public class ConnectionsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewPager mViewPager;
     private TextView person_name,person_email;
-    private RecyclerView recyclerView;
-    private DatabaseReference mRef;
-    private LinearLayoutManager mLinearLayoutManager;
-    private ArrayList<User> users;
-    private FirebaseAuth mAuth;
-    private ActiveChatConvo adapter;
+
     private ConnectionsPagerAdapter mConnecPager;
     private TabLayout mTablayout;
 
@@ -46,11 +41,7 @@ public class ConnectionsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_connections);
 
-        //Database
-        mRef = FirebaseDatabase.getInstance().getReference("Users");
-        mRef.keepSynced(true);
 
-        mAuth = FirebaseAuth.getInstance();
 
         //Tabs
         mViewPager = (ViewPager) findViewById(R.id.main_tabpager);
@@ -61,45 +52,7 @@ public class ConnectionsActivity extends AppCompatActivity {
 
         mViewPager.setAdapter(mConnecPager);
 
-        users = new ArrayList<>();
-        adapter = new ActiveChatConvo(users,this);
 
-        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists())
-                {
-
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                        String name = postSnapshot.child("Name").getValue(String.class);
-                        String email = postSnapshot.child("Email").getValue(String.class);
-                        String pic = postSnapshot.child("image").getValue(String.class);
-
-                        users.add(new User(name,email,pic));
-
-                    }
-
-                    adapter.notifyDataSetChanged();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        //Recycler View
-        recyclerView = (RecyclerView)findViewById(R.id.active_chats);
-        //ActiveChatConvo adapter = new ActiveChatConvo(users,this);
-
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        //mLinearLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(mLinearLayoutManager);
-
-        recyclerView.setAdapter(adapter);
-        //adapter.notifyDataSetChanged();
 
         //VIEWS
 
