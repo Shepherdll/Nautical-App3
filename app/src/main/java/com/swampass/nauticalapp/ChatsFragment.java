@@ -22,7 +22,6 @@ import com.swampass.nauticalapp.model.User;
 
 import java.util.ArrayList;
 
-
 public class ChatsFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -77,27 +76,18 @@ public class ChatsFragment extends Fragment {
             }
         });
 
-
-
         //Recycler View
         recyclerView = (RecyclerView) penis.findViewById(R.id.active_chats);
         //ActiveChatConvo adapter = new ActiveChatConvo(users,this);
         Context c = getContext();
-        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
         //mLinearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLinearLayoutManager);
 
         recyclerView.setAdapter(adapter);
         //adapter.notifyDataSetChanged();
 
-        return inflater.inflate(R.layout.fragment_chats, container, false);
+        return penis;
     }
-
-
-
-
-
-
-
 
 }
