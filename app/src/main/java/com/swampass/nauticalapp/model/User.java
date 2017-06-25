@@ -14,9 +14,9 @@ import com.squareup.picasso.Picasso;
  */
 
 public class User {
-    private String name;
-    private String email;
-    private String pic;
+    private String Name;
+    private String Email;
+    private String image;
     private DatabaseReference mRef;
     private FirebaseAuth mAuth;
 
@@ -26,15 +26,16 @@ public class User {
 
         mRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
 
-        if(mAuth.getCurrentUser() != null) {
+        if(mAuth.getCurrentUser() != null)
+        {
 
 
             mRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    name = dataSnapshot.child("Name").getValue(String.class);
-                    email = dataSnapshot.child("Email").getValue(String.class);
-                    pic = dataSnapshot.child("image").getValue(String.class);
+                    Name = dataSnapshot.child("Name").getValue(String.class);
+                    Email = dataSnapshot.child("Email").getValue(String.class);
+                    image = dataSnapshot.child("image").getValue(String.class);
                 }
 
                 @Override
@@ -50,22 +51,22 @@ public class User {
     public User(String name, String email, String pic) {
         mAuth = FirebaseAuth.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference("Users");
-        this.name = name;
-        this.email = email;
-        this.pic = pic;
+        this.Name = name;
+        this.Email = email;
+        this.image = pic;
     }
 
     public String getName() {
 
-        return name;
+        return Name;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public String getPic() {
-        return pic;
+        return image;
     }
 
 

@@ -2,15 +2,21 @@ package com.swampass.nauticalapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.swampass.nauticalapp.model.ActiveChatConvo;
+import com.swampass.nauticalapp.model.ChatItemAdapter;
+import com.swampass.nauticalapp.model.ChatMessage;
 import com.swampass.nauticalapp.model.User;
 
 import java.util.ArrayList;
@@ -37,8 +45,7 @@ public class ChatsFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View penis = inflater.inflate(R.layout.fragment_chats, container, false);
 
         // Inflate the layout for this fragment
@@ -48,25 +55,23 @@ public class ChatsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         users = new ArrayList<>();
-        adapter = new ActiveChatConvo(users,getContext());
+        adapter = new ActiveChatConvo(users, getContext());
 
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists())
-                {
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
-                    {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         String name = postSnapshot.child("Name").getValue(String.class);
                         String email = postSnapshot.child("Email").getValue(String.class);
                         String pic = postSnapshot.child("image").getValue(String.class);
 
-                        users.add(new User(name,email,pic));
+                        users.add(new User(name, email, pic));
 
                     }
 
                     adapter.notifyDataSetChanged();
-            }
+                }
 
             }
 
@@ -88,6 +93,15 @@ public class ChatsFragment extends Fragment {
         //adapter.notifyDataSetChanged();
 
         return penis;
-    }
 
+
+    }
 }
+
+
+
+
+
+
+
+

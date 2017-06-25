@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    LoggedIn_User_Email = user.getEmail();
+                    LoggedIn_User_Email = encodeEmail(user.getEmail());
                 }
             }
         };
@@ -113,4 +113,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
+    }
 }

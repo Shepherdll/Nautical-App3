@@ -92,16 +92,6 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
     //setMessage
 
 
-
-
-
-
-
-
-
-
-
-
                 mRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

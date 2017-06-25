@@ -8,20 +8,35 @@ import java.util.Date;
 public class ChatMessage {
 
     private String messageText;
-    private UserType userType;
-    private Status messageStatus;
     private String userID;
-    private Date date;
+   // private Date date;
 
-    public ChatMessage(String messageText, String userID, Date date) {
-        this.messageText = messageText;
-        this.userID = userID;
-        this.date = date;
+
+    public ChatMessage()
+    {
 
     }
 
-    public void setDate(Date mDate) {this.date = date;}
-    public Date getDate() {return date;}
+    //plain text message
+    public ChatMessage(String messageText, String userID) {
+        this.messageText = messageText;
+        this.userID = userID;
+        //this.date = date;
+        //this.multimedia = false;
+    }
+
+    //Multimedia Message
+    public ChatMessage(String userID, String messageText, String contentType, String contentLocation){
+        this.userID = userID;
+        this.messageText = messageText;
+        /*this.multimedia = true;
+        this.contentType = contentType;
+        //this.date = date;
+        this.contentLocation = contentLocation;*/
+    }
+
+  /*  public void setDate(Date mDate) {this.date = date;}
+    public Date getDate() {return date;}*/
 
     public String getUserID() {return userID;}
     public void setUserID(String userID) {this.userID = userID;}
@@ -29,11 +44,5 @@ public class ChatMessage {
     public void setMessageText(String messageText) {this.messageText = messageText;}
     public String getMessageText() { return messageText;}
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-    public UserType getUserType() {return userType;}
 
-    public void setMessageStatus(Status messageStatus) { this.messageStatus = messageStatus;}
-    public Status getMessageStatus() {return messageStatus;}
 }

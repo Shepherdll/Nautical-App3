@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -79,17 +80,17 @@ public class ActiveChatConvo extends RecyclerView.Adapter<ActiveChatConvo.ViewHo
         private ImageView mItemImage;
         private TextView mItemName;
         private TextView mItemDescription;
-        private LinearLayout layout;
+        private RelativeLayout layout;
         final LinearLayout.LayoutParams params;
 
 
         public ViewHolder(View v) {
             super(v);
 
-            mItemImage = (ImageView) v.findViewById(R.id.chat_persion_image);
-            mItemName = (TextView) v.findViewById(R.id.chat_persion_name);
-            mItemDescription = (TextView) v.findViewById(R.id.chat_persion_email);
-            layout = (LinearLayout) itemView.findViewById(R.id.show_chat_single_item_layout);
+            mItemImage = (ImageView) v.findViewById(R.id.user_single_image);
+            mItemName = (TextView) v.findViewById(R.id.user_single_name);
+            mItemDescription = (TextView) v.findViewById(R.id.user_single_lastmessage);
+            layout = (RelativeLayout) itemView.findViewById(R.id.show_chat_single_item_layout);
             params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             v.setOnClickListener(this);
         }
